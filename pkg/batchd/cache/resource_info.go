@@ -26,7 +26,7 @@ import (
 type Resource struct {
 	MilliCPU float64
 	Memory   float64
-	GPU      int64
+	GPU      float64
 }
 
 const (
@@ -63,8 +63,7 @@ func NewResource(rl v1.ResourceList) *Resource {
 		case v1.ResourceMemory:
 			r.Memory += float64(rQuant.Value())
 		case GPUResourceName:
-			q, _ := rQuant.AsInt64()
-			r.GPU += q
+			r.GPU += float64(rQuant.Value())
 		}
 	}
 	return r
